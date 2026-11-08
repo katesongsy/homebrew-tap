@@ -38,7 +38,8 @@ class Dort < Formula
       [match[1], match[2] || match[3] || match[4]] if match
     end.to_h
     version = /\A(\d+)\.(\d+)\z/.match(fields.fetch("VERSION_ID", ""))
-    return false unless fields["ID"] == "ubuntu" && version
+    return false unless fields["ID"] == "ubuntu"
+    return false unless version
 
     major, minor = version.captures.map(&:to_i)
     major > 24 || (major == 24 && minor >= 4)
@@ -47,9 +48,8 @@ class Dort < Formula
   def install
     if OS.linux?
       release = Pathname.new("/etc/os-release")
-      unless release.file? && self.class.supported_ubuntu?(release.read)
-        odie "Dort's prebuilt Linux binaries require Ubuntu 24.04 or newer (glibc 2.39+)."
-      end
+      supported = release.file? && self.class.supported_ubuntu?(release.read)
+      odie "Dort's prebuilt Linux binaries require Ubuntu 24.04 or newer (glibc 2.39+)." unless supported
     end
 
     bin.install "dort"
@@ -61,9 +61,9 @@ class Dort < Formula
     home = testpath/"isolated-home"
     home.mkpath
     environment = {
-      "HOME" => home.to_s,
+      "HOME"            => home.to_s,
       "XDG_CONFIG_HOME" => (home/"config").to_s,
-      "XDG_STATE_HOME" => (home/"state").to_s,
+      "XDG_STATE_HOME"  => (home/"state").to_s,
     }
     output, error, status = Open3.capture3(environment, (bin/"dort").to_s, "--version", chdir: home.to_s)
     assert_predicate status, :success?
