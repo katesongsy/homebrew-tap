@@ -1,4 +1,4 @@
-name: Package manager validation
+name: Homebrew validation
 on:
   push:
   pull_request:
@@ -39,14 +39,6 @@ jobs:
           test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
           brew install --formula --build-from-source katesongsy/tap/dort
           brew test --verbose katesongsy/tap/dort
-      - name: Set up pinned mise without installing project tools
-        uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b
-        with:
-          version: "2026.11.4"
-          install: false
-          cache: false
-      - name: Test direct GitHub mise installation in disposable HOME
-        run: python3 scripts/test-mise.py
       - name: Check source remained unchanged
         run: |
           git diff --exit-code

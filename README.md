@@ -22,26 +22,14 @@ The formula downloads the existing [Dort release](https://github.com/katesongsy/
 
 Before using real configuration, read the [getting-started guide](https://github.com/katesongsy/dort/blob/main/docs/user/getting-started.md) and [safety boundaries](https://github.com/katesongsy/dort/blob/main/docs/user/safety.md). Dort does not install package managers, clone/sync repositories or run providers. Writes need reviewed approval; recovery never automatically replays or overwrites later edits.
 
-## Mise alternative
-
-The same release is available through mise's GitHub backend; no third-party plugin or registry alias is required:
-
-```sh
-mise use --global github:katesongsy/dort@0.1.0
-mise exec github:katesongsy/dort@0.1.0 -- dort --version
-```
-
-The same supported-host requirements apply. Configure mise's PATH/shims as described in its [documentation](https://mise.jdx.dev/getting-started.html).
-
 ## Validation and updates
 
-The four-platform CI installs/tests the real Homebrew formula in disposable GitHub runners and tests direct GitHub-backed mise installation with a private canonical HOME/config/cache/data/state. The installed binary must match the verified release binary and report its version without creating application state. It does not perform real-home dotfile tasks.
+The four-platform CI checks the real Homebrew formula's platform-specific release URL/checksum, installs/tests it in disposable GitHub runners, and requires the installed application to report its version without creating state in a separate child HOME. It does not perform real-home dotfile tasks. This repository owns only Homebrew distribution.
 
 ```sh
 ruby scripts/test-formula.rb
-python3 scripts/test-mise.py --mise /absolute/path/to/mise
 ```
 
-The Ruby check loads only a small formula DSL stub; it does not change Homebrew. The mise check needs reviewed mise 2026.11.4 and downloads only the public Dort release into disposable storage. No workstation package-manager install is part of these checks.
+The Ruby check loads only a small formula DSL stub; it does not change Homebrew. Real package-manager installation is tested only in disposable CI, never against workstation installations.
 
-To update the tap, first publish and verify the upstream release, then update the formula's version/URLs/checksums and `tests/release.json` binary receipts together. Preserve all legal notices. CI never publishes new upstream releases, moves tags or updates formulae automatically. The public tap and mise backend do not imply acceptance into Homebrew Core or mise's short-name registry.
+To update the tap, first publish and verify the upstream release, then update the formula's version/URLs/checksums and `tests/release.json` binary receipts together. Preserve all legal notices. CI never publishes new upstream releases, moves tags or updates formulae automatically. The public tap does not imply acceptance into Homebrew Core.
