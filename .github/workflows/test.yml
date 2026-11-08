@@ -1,0 +1,53 @@
+name: Package manager validation
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  install:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-24.04-arm, macos-15, macos-15-intel]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      HOMEBREW_NO_ANALYTICS: "1"
+      HOMEBREW_NO_INSTALL_CLEANUP: "1"
+      HOMEBREW_NO_ENV_HINTS: "1"
+    steps:
+      # This action checks out the exact CI commit and links the tap into disposable Homebrew.
+      - name: Set up Homebrew and checkout tap
+        uses: Homebrew/actions/setup-homebrew@63a2d4d8d4193eab3e62b1b782ff3ab8408f5b29
+        with:
+          stable: true
+          core: false
+          cask: false
+      - name: Runtime evidence and formula guards
+        run: |
+          uname -sm
+          brew --version
+          ruby --version
+          python3 --version
+          ruby scripts/test-formula.rb
+          ruby -c Formula/dort.rb
+          brew style Formula/dort.rb
+      - name: Install and test exact tap formula
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          brew install --formula --build-from-source katesongsy/tap/dort
+          brew test --verbose katesongsy/tap/dort
+      - name: Set up pinned mise without installing project tools
+        uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b
+        with:
+          version: "2026.11.4"
+          install: false
+          cache: false
+      - name: Test direct GitHub mise installation in disposable HOME
+        run: python3 scripts/test-mise.py
+      - name: Check source remained unchanged
+        run: |
+          git diff --exit-code
+          git diff --check
