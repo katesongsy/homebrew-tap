@@ -38,7 +38,7 @@ class Dort < Formula
       [match[1], match[2] || match[3] || match[4]] if match
     end.to_h
     version = /\A(\d+)\.(\d+)\z/.match(fields.fetch("VERSION_ID", ""))
-    return false unless fields["ID"] == "ubuntu"
+    return false if fields["ID"] != "ubuntu"
     return false unless version
 
     major, minor = version.captures.map(&:to_i)
