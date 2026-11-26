@@ -4,30 +4,30 @@ require "open3"
 class Dort < Formula
   desc "Experimental, TUI-first local dotfile manager with guarded recovery"
   homepage "https://github.com/katesongsy/dort"
-  version "0.2.0"
+  version "0.3.0"
   license "MIT"
 
   on_macos do
     depends_on macos: :sequoia
 
     on_arm do
-      url "https://github.com/katesongsy/dort/releases/download/v0.2.0/dort-v0.2.0-aarch64-apple-darwin.tar.gz"
-      sha256 "c5b71004d321cca6045195ca1b8aa41953c904523bd5fe2e1c8804834f3f445f"
+      url "https://github.com/katesongsy/dort/releases/download/v0.3.0/dort-v0.3.0-aarch64-apple-darwin.tar.gz"
+      sha256 "9b69daac306dd50c41a7a94f9785ab6fad2d83a0215b2ef4d11c26d715a02f3c"
     end
     on_intel do
-      url "https://github.com/katesongsy/dort/releases/download/v0.2.0/dort-v0.2.0-x86_64-apple-darwin.tar.gz"
-      sha256 "3e3504cd018d6fd4311735d6023d8c595b410e8ae39c1449b36e8bf2e650e331"
+      url "https://github.com/katesongsy/dort/releases/download/v0.3.0/dort-v0.3.0-x86_64-apple-darwin.tar.gz"
+      sha256 "e01df91687e2251b1558b6887996a8a9006eff2cd1b3ff4f90b5ffda45f9dc32"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/katesongsy/dort/releases/download/v0.2.0/dort-v0.2.0-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "caa13f7725563ccedb4db2f4bb0808aa3d67680009582bb9395633ddbe3b0201"
+      url "https://github.com/katesongsy/dort/releases/download/v0.3.0/dort-v0.3.0-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "24ab061e13f2bf477aa25b397dae090e688b9000aa9726b26a55ddb02eee0bff"
     end
     on_intel do
-      url "https://github.com/katesongsy/dort/releases/download/v0.2.0/dort-v0.2.0-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "8268e01ca560f2904ccd908ca0651646885cfd9a34056f6de31e56253ec9b7ac"
+      url "https://github.com/katesongsy/dort/releases/download/v0.3.0/dort-v0.3.0-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "c052909a77f5a3ddd79698b038fb79697a9fe45ae9f47185bee9d1af0d33354b"
     end
   end
 

@@ -18,9 +18,9 @@ brew install dort
 
 Dort is experimental. Supported binary hosts are macOS 15+ and Ubuntu 24.04+ (glibc 2.39+), on Intel/x86_64 or ARM64. Other Linux distributions and older operating systems are not supported by this formula. Rust is not needed for these prebuilt binaries; local init/attach and Git inspection additionally require installed Git.
 
-The formula downloads [Dort v0.2.0](https://github.com/katesongsy/dort/releases/tag/v0.2.0), verifies its platform-specific SHA-256, and retains the MIT license, dependency/Rust library notices and build provenance. Checksums are integrity checks, not an independent publisher signature or notarization.
+The formula downloads [Dort v0.3.0](https://github.com/katesongsy/dort/releases/tag/v0.3.0), verifies its platform-specific SHA-256, and retains the MIT license, dependency/Rust library notices and build provenance. Checksums are integrity checks, not an independent publisher signature or notarization.
 
-Before using real configuration, read the [getting-started guide](https://github.com/katesongsy/dort/blob/main/docs/user/getting-started.md) and [safety boundaries](https://github.com/katesongsy/dort/blob/main/docs/user/safety.md). Dort checks and installs tools through Homebrew and npm. Writes require approval. Upgrading from v0.1.0? [Update your manifest](https://github.com/katesongsy/dort/blob/v0.2.0/docs/user/manifest.md#upgrade-from-v010) before applying changes.
+Before using real configuration, read the [getting-started guide](https://github.com/katesongsy/dort/blob/main/docs/user/getting-started.md) and [safety boundaries](https://github.com/katesongsy/dort/blob/main/docs/user/safety.md). Dort checks and installs tools through Homebrew and npm. Writes require approval. Upgrading from v0.1.0? [Update your manifest](https://github.com/katesongsy/dort/blob/v0.3.0/docs/user/manifest.md#upgrade-from-v010) before applying changes.
 
 ## Validation and updates
 
